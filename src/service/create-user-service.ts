@@ -17,7 +17,7 @@ export class CreateUserService {
         })
 
         if (existingUser) {
-            throw new Error("Usuario já existe")
+            throw new Error("User already exists")
         }
 
         const hashedPassword = await bcrypt.hash(password, 10)
@@ -39,7 +39,7 @@ export class CreateUserService {
                 email: email
             },
             accessToken,
-            message: "Registrado com sucesso"
+            message: "Registered successfully"
         }
     }
 }

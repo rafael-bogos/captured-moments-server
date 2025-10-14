@@ -16,13 +16,13 @@ export class LoginUserService {
         })
 
         if (!user) {
-            throw new Error("Usuario não encontrado")
+            throw new Error("User not found")
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password)
 
         if (!isPasswordValid) {
-            throw new Error("Credenciais invalidas")
+            throw new Error("Invalid credentials")
         }
 
         const accessToken = jwt.sign({ userId: user.id }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: "72h" })
@@ -34,7 +34,7 @@ export class LoginUserService {
                 email: user.email
             },
             accessToken,
-            message: "Login realizado com sucesso"
+            message: "Login successfully"
         }
 
     }
