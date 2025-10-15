@@ -18,4 +18,4 @@ export function router(fastify: FastifyInstance) {
     })
 
 
-}
+}autenticateToken
