@@ -7,7 +7,7 @@ export class LoginUserController {
         const { email, password } = request.body as { email: string, password: string }
 
         if (!email || !password) {
-            response.status(400).send({ message: "All fields are required" })
+            return response.status(400).send({ message: "All fields are required" })
         }
         try {
             const loginUserService = new LoginUserService()

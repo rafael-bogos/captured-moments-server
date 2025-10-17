@@ -1,6 +1,6 @@
-import { prisma } from "../prisma/prisma"
+import { prisma } from "../config/prisma"
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
+import { AuthUtils } from "../utils/auth-utils";
 
 interface userProps {
     email: string;
@@ -21,7 +21,6 @@ export class CreateUserService {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10)
-        console
         const user = await prisma.user.create({
             data: {
                 fullName,
@@ -30,7 +29,7 @@ export class CreateUserService {
             }
         })
 
-        const accessToken = jwt.sign({ userId: user.id }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: "72h" })
+        const accessToken = AuthUtils.generateAccesToken(user.id)
 
         return {
             error: false,

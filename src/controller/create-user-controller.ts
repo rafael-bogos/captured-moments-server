@@ -6,7 +6,7 @@ export class CreateUserController {
         const { fullName, email, password } = request.body as { fullName: string, email: string, password: string }
 
         if (!fullName || !email || !password) {
-            response.status(400).send({ message: "All fields are required" })
+            return response.status(400).send({ message: "All fields are required" })
         }
 
         try {
