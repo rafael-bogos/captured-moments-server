@@ -7,6 +7,8 @@ import { AddRegisteredMomentController } from "./controller/add-registered-momen
 import { GetAllMomentsController } from "./controller/get-all-moments-controller";
 import { SearchMomentsController } from "./controller/search-moments-controller";
 import { EditMomentController } from "./controller/edit-moment-controller";
+import axios from "axios";
+import { TextEnhancerController } from "./controller/text-enhancer-controller";
 
 export function router(fastify: FastifyInstance) {
     fastify.post('/create-account', async (request: FastifyRequest, response: FastifyReply) => {
@@ -35,5 +37,9 @@ export function router(fastify: FastifyInstance) {
 
     fastify.get('/get-user', { preHandler: autenticateToken }, async (request: FastifyRequest, response: FastifyReply) => {
         return new GetUserController().handle(request, response)
+    })
+
+    fastify.post('/ia', async (request: FastifyRequest, response: FastifyReply) => {
+        return new TextEnhancerController().handle(request, response)
     })
 } 
