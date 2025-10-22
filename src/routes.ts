@@ -1,14 +1,16 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { CreateUserController } from "./controller/create-user-controller";
-import { LoginUserController } from "./controller/login-user-controller";
-import { GetUserController } from "./controller/get-user-controller";
 import { autenticateToken } from "./middleware/authenticate-token";
-import { AddRegisteredMomentController } from "./controller/add-registered-moment-controller";
-import { GetAllMomentsController } from "./controller/get-all-moments-controller";
-import { SearchMomentsController } from "./controller/search-moments-controller";
-import { EditMomentController } from "./controller/edit-moment-controller";
-import axios from "axios";
-import { TextEnhancerController } from "./controller/text-enhancer-controller";
+import { upload } from "./config/multer";
+import { CreateUserController } from "./controller/auth/create-user-controller";
+import { AddRegisteredMomentController } from "./controller/moments/add-registered-moment-controller";
+import { EditMomentController } from "./controller/moments/edit-moment-controller";
+import { GetAllMomentsController } from "./controller/moments/get-all-moments-controller";
+import { SearchMomentsController } from "./controller/moments/search-moments-controller";
+import { LoginUserController } from "./controller/auth/login-user-controller";
+import { GetUserController } from "./controller/auth/get-user-controller";
+import { TextEnhancerController } from "./controller/moments/text-enhancer-controller";
+import { UploadFileController } from "./controller/upload/upload-file-controller";
+import { DeleteFileController } from "./controller/upload/delete-file-controller";
 
 export function router(fastify: FastifyInstance) {
     fastify.post('/create-account', async (request: FastifyRequest, response: FastifyReply) => {
@@ -41,5 +43,13 @@ export function router(fastify: FastifyInstance) {
 
     fastify.post('/ia', async (request: FastifyRequest, response: FastifyReply) => {
         return new TextEnhancerController().handle(request, response)
+    })
+
+    fastify.post('/image-upload', { preHandler: upload.single("image") }, async (request: FastifyRequest, response: FastifyReply) => {
+        return new UploadFileController().handle(request, response)
+    })
+
+    fastify.delete('/delete-upload', async (request: FastifyRequest, response: FastifyReply) => {
+        return new DeleteFileController().handle(request, response)
     })
 } 

@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { GetAllMomentsService } from "../service/get-all-moments-service";
+import { GetAllMomentsService } from "../../service/moments/get-all-moments-service";
 
 export class GetAllMomentsController {
     async handle(request: FastifyRequest, response: FastifyReply) {

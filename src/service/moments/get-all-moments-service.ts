@@ -1,4 +1,4 @@
-import { prisma } from "../config/prisma";
+import { prisma } from "../../config/prisma";
 
 export class GetAllMomentsService {
     async execute({ user }: { user: { userId: string } }) {

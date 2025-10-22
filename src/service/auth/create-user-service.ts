@@ -1,6 +1,6 @@
-import { prisma } from "../config/prisma"
 import bcrypt from 'bcrypt'
-import { AuthUtils } from "../utils/auth-utils";
+import { prisma } from '../../config/prisma';
+import { AuthUtils } from '../../utils/auth-utils';
 
 interface userProps {
     email: string;

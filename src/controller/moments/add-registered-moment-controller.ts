@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { AddRegisteredMomentService, ResisteredMomentsProps } from "../service/add-registered-moment-service";
+import { AddRegisteredMomentService, ResisteredMomentsProps } from "../../service/moments/add-registered-moment-service";
 
 export class AddRegisteredMomentController {
     async handle(request: FastifyRequest, response: FastifyReply) {

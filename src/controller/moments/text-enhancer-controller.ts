@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify"
-import { TextEnhancerService } from "../service/text-enhancer-service";
+import { TextEnhancerService } from "../../service/moments/text-enhancer-service";
 
 export class TextEnhancerController {
     async handle(request: FastifyRequest, response: FastifyReply) {
