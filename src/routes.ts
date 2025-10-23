@@ -11,6 +11,8 @@ import { GetUserController } from "./controller/auth/get-user-controller";
 import { TextEnhancerController } from "./controller/moments/text-enhancer-controller";
 import { UploadFileController } from "./controller/upload/upload-file-controller";
 import { DeleteFileController } from "./controller/upload/delete-file-controller";
+import { DeleteMomentController } from "./controller/moments/delete-moment-controller";
+
 
 export function router(fastify: FastifyInstance) {
     fastify.post('/create-account', async (request: FastifyRequest, response: FastifyReply) => {
@@ -51,5 +53,9 @@ export function router(fastify: FastifyInstance) {
 
     fastify.delete('/delete-upload', async (request: FastifyRequest, response: FastifyReply) => {
         return new DeleteFileController().handle(request, response)
+    })
+
+    fastify.delete('/delete-moment/:id', { preHandler: autenticateToken }, async (request: FastifyRequest, response: FastifyReply) => {
+        return new DeleteMomentController().handle(request, response)
     })
 } 

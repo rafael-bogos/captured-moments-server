@@ -12,7 +12,6 @@ export interface ResisteredMomentsProps {
 
 export class AddRegisteredMomentService {
     async execute({ imageUrl, story, title, user, visitedDate, visitedLocation }: ResisteredMomentsProps) {
-
         const parsedVisitedDate = new Date(parseInt(visitedDate))
 
         const result = await prisma.moments.create({
