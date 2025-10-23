@@ -12,50 +12,79 @@ import { TextEnhancerController } from "./controller/moments/text-enhancer-contr
 import { UploadFileController } from "./controller/upload/upload-file-controller";
 import { DeleteFileController } from "./controller/upload/delete-file-controller";
 import { DeleteMomentController } from "./controller/moments/delete-moment-controller";
+import { UpdateIsFavoriteController } from "./controller/moments/update-is-favorite-controller";
+import { DateFilterMomentController } from "./controller/moments/date-filter-moment-controller";
 
 
 export function router(fastify: FastifyInstance) {
+
+    // AUTH: CRIAÇÃO DE USUÁRIO
     fastify.post('/create-account', async (request: FastifyRequest, response: FastifyReply) => {
         return new CreateUserController().handle(request, response)
     })
 
-    fastify.post('/add-registered-moment', { preHandler: autenticateToken }, async (request: FastifyRequest, response: FastifyReply) => {
-        return new AddRegisteredMomentController().handle(request, response)
-    })
-
-    fastify.put('/edit-moment/:id', { preHandler: autenticateToken }, async (request: FastifyRequest, response: FastifyReply) => {
-        return new EditMomentController().handle(request, response)
-    })
-
-    fastify.get('/get-all-moments', { preHandler: autenticateToken }, async (request: FastifyRequest, response: FastifyReply) => {
-        return new GetAllMomentsController().handle(request, response)
-    })
-
-    fastify.get('/search-moments', { preHandler: autenticateToken }, async (request: FastifyRequest, response: FastifyReply) => {
-        return new SearchMomentsController().handle(request, response)
-    })
-
+    // AUTH: LOGIN DE USUÁRIO
     fastify.post('/login', async (request: FastifyRequest, response: FastifyReply) => {
         return new LoginUserController().handle(request, response)
     })
-
+    // AUTH: BUSCA DE USUÁRIO
     fastify.get('/get-user', { preHandler: autenticateToken }, async (request: FastifyRequest, response: FastifyReply) => {
         return new GetUserController().handle(request, response)
     })
 
+
+
+    // MOMENT: ADICIONAR NOVO MOMENT
+    fastify.post('/add-registered-moment', { preHandler: autenticateToken }, async (request: FastifyRequest, response: FastifyReply) => {
+        return new AddRegisteredMomentController().handle(request, response)
+    })
+
+    // MOMENT: ATUALIZAR MOMENT
+    fastify.put('/edit-moment/:id', { preHandler: autenticateToken }, async (request: FastifyRequest, response: FastifyReply) => {
+        return new EditMomentController().handle(request, response)
+    })
+
+    // MOMENT: BUSCAR TODOS OS MOMENTS
+    fastify.get('/get-all-moments', { preHandler: autenticateToken }, async (request: FastifyRequest, response: FastifyReply) => {
+        return new GetAllMomentsController().handle(request, response)
+    })
+
+    // MOMENT: BUSCAR POR TERMOS
+    fastify.get('/search-moments', { preHandler: autenticateToken }, async (request: FastifyRequest, response: FastifyReply) => {
+        return new SearchMomentsController().handle(request, response)
+    })
+
+    // MOMENT: DELETAR MOMENT
+    fastify.delete('/delete-moment/:id', { preHandler: autenticateToken }, async (request: FastifyRequest, response: FastifyReply) => {
+        return new DeleteMomentController().handle(request, response)
+    })
+
+    // MOMENT: ATUALIZAR FAVORITOS DO MOMENT
+    fastify.patch('/update-is-favorite/:id', { preHandler: autenticateToken }, async (request: FastifyRequest, response: FastifyReply) => {
+        return new UpdateIsFavoriteController().handle(request, response)
+    })
+
+    // MOMENT: FILTRO POR DATA
+    fastify.get('/registered-moment/filter', { preHandler: autenticateToken }, async (request: FastifyRequest, response: FastifyReply) => {
+        return new DateFilterMomentController().handle(request, response)
+    })
+
+
+
+    // IA: ADICIONAR NOVO MOMENT
     fastify.post('/ia', async (request: FastifyRequest, response: FastifyReply) => {
         return new TextEnhancerController().handle(request, response)
     })
 
+
+    // UPLOAD: ADICIONAR IMAGEM
     fastify.post('/image-upload', { preHandler: upload.single("image") }, async (request: FastifyRequest, response: FastifyReply) => {
         return new UploadFileController().handle(request, response)
     })
 
+    // UPLOAD: DELETAR IMAGEM
     fastify.delete('/delete-upload', async (request: FastifyRequest, response: FastifyReply) => {
         return new DeleteFileController().handle(request, response)
     })
 
-    fastify.delete('/delete-moment/:id', { preHandler: autenticateToken }, async (request: FastifyRequest, response: FastifyReply) => {
-        return new DeleteMomentController().handle(request, response)
-    })
 } 

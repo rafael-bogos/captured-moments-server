@@ -1,6 +1,5 @@
 import { prisma } from "../../config/prisma";
 
-
 export interface ResisteredMomentsProps {
     title: string;
     story: string;
