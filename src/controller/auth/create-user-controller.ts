@@ -13,7 +13,7 @@ export class CreateUserController {
             const createUserService = new CreateUserService()
             const user = await createUserService.execute({email, fullName, password})
 
-            response.send(user)
+            response.status(201).send(user)
 
         } catch (error: any) {
             console.error("Error: ", error)

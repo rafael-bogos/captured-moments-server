@@ -23,9 +23,9 @@ export class EditMomentService {
         if (!registeredMoment) {
             throw new Error("Register moment not found")
         }
-        
-        const placeholderImageUrl = `${process.env.APPLICATION_BASE_URL}/uploads/imagem-fallback.png`
-        const parsedVisitedDate = new Date(parseInt(visitedDate))
+
+        const placeholderImageUrl = `${process.env.APPLICATION_BASE_URL}/uploads/image-default.png`
+        const parsedVisitedDate = new Date(visitedDate)
 
         const result = await prisma.moments.update({
             where: {

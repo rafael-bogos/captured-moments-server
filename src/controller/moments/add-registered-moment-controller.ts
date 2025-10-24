@@ -7,7 +7,7 @@ export class AddRegisteredMomentController {
             const { title, story, visitedLocation, imageUrl, visitedDate } = request.body as ResisteredMomentsProps;
             const { user } = request;
 
-            if (!title || !story || !visitedLocation || !imageUrl || !visitedDate) {
+            if (!title || !story || !visitedLocation || !visitedDate) {
                 return response.status(400).send({ message: "All fields are required" })
             }
 

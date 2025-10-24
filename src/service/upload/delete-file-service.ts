@@ -6,6 +6,10 @@ export class DeleteFileService {
         const fileName = path.basename(imageUrl);
         const filePath = path.join(__dirname, '..', '..', '..', 'uploads', fileName)
 
+        if (fileName === 'image-default.png') {
+            return { message: 'Image default has been preserved' }
+        }
+
         if (fs.existsSync(filePath)) {
             fs.unlinkSync(filePath)
             return { message: "Image deleted successfuly" }
