@@ -17,11 +17,14 @@ export class TextEnhancerService {
 
                         TEXTO APRIMORADO:`
 
+        console.log("entrada: ", text)
         const result = await axios.post(`http://localhost:11434/api/generate`, {
             "model": "llama3.2",
             "prompt": prompt,
             "stream": false
         })
+
+        console.log("result: ", result.data.response.trim())
 
         return { message: result.data.response.trim() }
     }
